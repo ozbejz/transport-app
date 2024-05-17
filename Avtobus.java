@@ -28,40 +28,40 @@ public class Avtobus extends Prevoz{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("datum odhoda: ");
-        String datumOdhoda = br.readLine();
+        String datumOdhoda = br.readLine().trim();
 
         System.out.println("ura odhoda: ");
-        String uraOdhoda = br.readLine();
+        String uraOdhoda = br.readLine().trim();
 
         System.out.println("datm prihoda: ");
-        String datumPrihoda = br.readLine();
+        String datumPrihoda = br.readLine().trim();
 
         System.out.println("ura prihoda: ");
-        String uraPrihoda = br.readLine();
+        String uraPrihoda = br.readLine().trim();
 
         System.out.println("kraj odhoda: ");
-        String krajOdhoda = br.readLine();
+        String krajOdhoda = br.readLine().trim();
 
         System.out.println("drzava odhoda: ");
-        String drzavaOdhoda = br.readLine();
+        String drzavaOdhoda = br.readLine().trim();
 
         System.out.println("kraj prihoda: ");
-        String krajPrihoda = br.readLine();
+        String krajPrihoda = br.readLine().trim();
 
         System.out.println("drzava prihoda: ");
-        String drzavaPrihoda = br.readLine();
+        String drzavaPrihoda = br.readLine().trim();
 
         System.out.println("cena vozovnice: ");
-        double cenaVozovnice = Integer.parseInt(br.readLine());
+        double cenaVozovnice = Integer.parseInt(br.readLine().trim());
 
         System.out.println("stevilo sedezev: ");
-        int stSedezev = Integer.parseInt(br.readLine());
+        int stSedezev = Integer.parseInt(br.readLine().trim());
 
         System.out.println("avtobusni prevoznik: ");
-        String prevoznik = br.readLine();
+        String prevoznik = br.readLine().trim();
 
         System.out.println("stevilka avtobusa: ");
-        int stAvtobusa = Integer.parseInt(br.readLine());
+        int stAvtobusa = Integer.parseInt(br.readLine().trim());
 
         Avtobus a = new Avtobus(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, prevoznik, stAvtobusa);
         return a;   
@@ -70,12 +70,7 @@ public class Avtobus extends Prevoz{
     @Override
     public String toString(){
         String niz = "";
-        niz += "Datum in ura odhoda: " + this.getCenaVozovnice() + ", " + this.getUraOdhoda() + "\n";
-        niz += "Datum in ura prihoda: " + this.getDatumPrihoda() + ", " + this.getUraPrihoda() + "\n";
-        niz += "Kraj in drazava odhoda: " + this.getKrajOdhoda() + ", " + this.getDrzavaOdhoda() + "\n";
-        niz += "Kraj in drzava prihoda: " + this.getKrajPrihoda() + ", " + this.getDrzavaPrihoda() + "\n";
-        niz += "Cena vozovnice: " + this.getCenaVozovnice() + "\n";
-        niz += "Stevilo sedezev: " + this.getStSedezev() + "\n";
+        niz += this.izpisNadrazreda();
         niz += "Avtobusni prevoznik: " + prevoznik + "\n";
         niz += "Stevilka avtobusa: " + stAvtobusa + "\n";
 

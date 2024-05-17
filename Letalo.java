@@ -58,21 +58,17 @@ public class Letalo extends Prevoz {
         return l;
     }
 
-    public String izpisNadrejenega(){
+    public String izpisNadrazreda(){
         String niz = "";
-        niz += "Datum in ura odhoda: " + this.getCenaVozovnice() + ", " + this.getUraOdhoda() + "\n";
-        niz += "Datum in ura prihoda: " + this.getDatumPrihoda() + ", " + this.getUraPrihoda() + "\n";
-        niz += "Kraj in drazava odhoda: " + this.getKrajOdhoda() + ", " + this.getDrzavaOdhoda() + "\n";
-        niz += "Kraj in drzava prihoda: " + this.getKrajPrihoda() + ", " + this.getDrzavaPrihoda() + "\n";
-        niz += "Cena vozovnice: " + this.getCenaVozovnice() + "\n";
-        niz += "Stevilo sedezev: " + this.getStSedezev() + "\n";
+        niz += this.izpisNadrazreda();
+        niz += "Stevilka letala: " + stLetala + "\n";
         return niz;
     }
 
     @Override
     public String toString(){
         String niz = "";
-        niz += this.izpisNadrejenega();
+        niz += this.izpisNadrazreda();
         niz += "Stevilka letala: " + stLetala + "\n";
 
         return niz;

@@ -60,7 +60,7 @@ public class KomercialniLet extends Letalo{
     @Override
     public String toString(){
         String niz = "";
-        niz += this.izpisNadrejenega();
+        niz += this.izpisNadrazreda();
         niz += "Letalska druzba: " + letalskaDruzba + "\n";
 
         return niz;

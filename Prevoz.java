@@ -15,7 +15,7 @@ public class Prevoz{
     private int id;
     private int stProdanihVozovnic;
 
-    private static int zap = 0;
+    private static int zap = 1;
 
     public Prevoz(){
         id = zap;
@@ -37,6 +37,10 @@ public class Prevoz{
         id = zap;
         zap++;
         stProdanihVozovnic = 0;
+    }
+
+    public void setStProdanih(int st){
+        stProdanihVozovnic = st;
     }
 
     public String getDatumOdhoda(){
@@ -79,8 +83,29 @@ public class Prevoz{
         return stSedezev;
     }
 
+    public int getStProdanih(){
+        return stProdanihVozovnic;
+    }
+
+    public int getId(){
+        return id;
+    }
+
     public void addDatumOdhoda(String dO){
         datumOdhoda = dO;
+    }
+
+    public String izpisNadrazreda(){
+        String niz = "";
+        niz += "Datum in ura odhoda: " + datumOdhoda + ", " + uraOdhoda + "\n";
+        niz += "Datum in ura prihoda: " + datumPrihoda + ", " + uraPrihoda + "\n";
+        niz += "Kraj in drazava odhoda: " + krajOdhoda + ", " + drzavaOdhoda + "\n";
+        niz += "Kraj in drzava prihoda: " + krajPrihoda + ", " + drzavaPrihoda + "\n";
+        niz += "Cena vozovnice: " + cenaVozovnice + "\n";
+        niz += "Stevilo sedezev: " + stSedezev + "\n";
+        niz += "Stevilo prostih sedezev: " + (stSedezev - stProdanihVozovnic) + "\n";
+
+        return niz;
     }
     
     @Override
@@ -92,6 +117,7 @@ public class Prevoz{
         niz += "Kraj in drzava prihoda: " + krajPrihoda + ", " + drzavaPrihoda + "\n";
         niz += "Cena vozovnice: " + cenaVozovnice + "\n";
         niz += "Stevilo sedezev: " + stSedezev + "\n";
+        niz += "Stevilo prostih sedezev: " + (stSedezev - stProdanihVozovnic) + "\n";
 
         return niz;
     }
@@ -100,34 +126,34 @@ public class Prevoz{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
         System.out.println("datum odhoda: ");
-        String datumOdhoda = br.readLine();
+        String datumOdhoda = br.readLine().trim();
 
         System.out.println("ura odhoda: ");
-        String uraOdhoda = br.readLine();
+        String uraOdhoda = br.readLine().trim();
 
         System.out.println("datm prihoda: ");
-        String datumPrihoda = br.readLine();
+        String datumPrihoda = br.readLine().trim();
 
         System.out.println("ura prihoda: ");
-        String uraPrihoda = br.readLine();
+        String uraPrihoda = br.readLine().trim();
 
         System.out.println("kraj odhoda: ");
-        String krajOdhoda = br.readLine();
+        String krajOdhoda = br.readLine().trim();
 
         System.out.println("drzava odhoda: ");
-        String drzavaOdhoda = br.readLine();
+        String drzavaOdhoda = br.readLine().trim();
 
         System.out.println("kraj prihoda: ");
-        String krajPrihoda = br.readLine();
+        String krajPrihoda = br.readLine().trim();
 
         System.out.println("drzava prihoda: ");
-        String drzavaPrihoda = br.readLine();
+        String drzavaPrihoda = br.readLine().trim();
 
         System.out.println("cena vozovnice: ");
-        double cenaVozovnice = Integer.parseInt(br.readLine());
+        double cenaVozovnice = Integer.parseInt(br.readLine().trim());
 
         System.out.println("stevilo sedezev: ");
-        int stSedezev = Integer.parseInt(br.readLine());
+        int stSedezev = Integer.parseInt(br.readLine().trim());
 
         Prevoz p = new Prevoz(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev);
 

@@ -11,11 +11,9 @@ public class App {
         while (true) {
             try{
                 System.out.println("(1) vnos prevoza");
-                System.out.println("(2) izpis prevozov");
+                System.out.println("(2) izpis/iskanje prevozov");
                 System.out.println("(3) odstranitev prevoza");
-                System.out.println("(4) iskanje prevozov");
-                System.out.println("(5) iskanje vozovnic");
-                System.out.println("(6) nakup vozovnice");
+                System.out.println("(4) nakup vozovnic");
                 System.out.println("(0) koncaj");
                 
                 int vnos = Integer.parseInt(br.readLine());
@@ -26,13 +24,51 @@ public class App {
                         agencija.dodajPrevoz(p);
                         break;
                     case 2:
-                        agencija.izpis();
+                        System.out.println("(1) izpis po datumu");
+                        System.out.println("(2) izpis po kraju");
+                        System.out.println("(3) izpis po ceni vozovnice");
+                        System.out.println("(4) izpis po stevilu oseb");
+                        System.out.println("(5) izpis vseh prevozov");
+
+                        vnos = Integer.parseInt(br.readLine());
+            
+                        switch (vnos) {
+                            case 1:
+                                System.out.println("datum potovanja:");
+                                String datum = br.readLine();
+                                agencija.izpisPoDatumu(datum);
+                                break;
+                            case 2:
+                                System.out.println("kraj odhoda:");
+                                String krajOd = br.readLine();
+                                System.out.println("kraj prihoda:");
+                                String krajPr = br.readLine();
+
+                                agencija.izpisPoKraju(krajOd, krajPr);
+                                break;
+                            case 3:
+                                System.out.println("vnesi max ceno vozovnice: ");
+                                double cena = Double.parseDouble(br.readLine());
+                                agencija.izpisPoCeni(cena);
+                                break;
+                            case 4:
+                                System.out.println("vnesi stevilo oseb: ");
+                                int st = Integer.parseInt(br.readLine());
+                                agencija.izpisPoStOseb(st);
+                                break;
+                            case 5:
+                                agencija.izpis();
+                                break;
+                        
+                            default:
+                                break;
+                        }
                         break;
                     case 3:
                         agencija.odstraniPrevoz();
                         break;
                     case 4:
-                        
+                        agencija.nakupVozovnic();
                         break;
                     case 5:
                         
@@ -122,18 +158,5 @@ public class App {
             System.out.println("Napaka");
         }
         return null;
-    }
-
-    static public void iskanjePrevozov(){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        try{
-            while (true) {
-                
-            }
-        }
-        catch(Exception e){
-            System.out.println("Napaka");
-        }
     }
 }

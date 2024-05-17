@@ -61,7 +61,7 @@ public class PrivatnoLetalo extends Letalo {
     @Override
     public String toString(){
         String niz = "";
-        niz += this.izpisNadrejenega();
+        niz += this.izpisNadrazreda();
         niz += "Pilot: " + pilot + "\n";
 
         return niz;
