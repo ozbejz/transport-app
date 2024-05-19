@@ -2,16 +2,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class PrivatnoLetalo extends Letalo {
-    public String pilot;
+    public String postrezba;
 
     public PrivatnoLetalo(){
         super();
-        pilot = "";
+        postrezba = "";
     }
 
-    public PrivatnoLetalo(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, int stL, String pi){
-        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, stL);
-        pilot = pi;
+    public PrivatnoLetalo(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, Relacija r, int stL, String pro, String po){
+        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, r, stL, pro);
+        postrezba = po;
     }
 
     public static PrivatnoLetalo ustvariPrivatnoLetalo() throws Exception{
@@ -47,13 +47,19 @@ public class PrivatnoLetalo extends Letalo {
         System.out.println("stevilo sedezev: ");
         int stSedezev = Integer.parseInt(br.readLine());
 
+        Relacija r = Relacija.ustvariRelacija();
+
         System.out.println("stevilo letala: ");
         int stLetala = Integer.parseInt(br.readLine());
 
-        System.out.println("pilot: ");
-        String pilot = br.readLine();
+        System.out.println("proizvajalec: ");
+        String pr = br.readLine();
 
-        PrivatnoLetalo pl = new PrivatnoLetalo(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, stLetala, pilot);
+        System.out.println("postrezba: ");
+        String postrezba = br.readLine();
+
+        PrivatnoLetalo pl = new PrivatnoLetalo(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev,
+        r, stLetala, pr, postrezba);
 
         return pl;
     }
@@ -61,8 +67,8 @@ public class PrivatnoLetalo extends Letalo {
     @Override
     public String toString(){
         String niz = "";
-        niz += this.izpisNadrazreda();
-        niz += "Pilot: " + pilot + "\n";
+        niz += this.izpisNadrazredaLetalo();
+        niz += "Postrezba: " + postrezba + "\n";
 
         return niz;
     }

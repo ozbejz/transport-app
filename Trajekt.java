@@ -3,14 +3,18 @@ import java.io.InputStreamReader;
 
 public class Trajekt extends Ladja {
     private int stAvtov;
+    private double maxTezaAvta;
 
     public Trajekt(){
-
+        super();
+        stAvtov = 0;
+        maxTezaAvta = 0;
     }
 
-    public Trajekt(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, String i, String l, int stA){
-        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, i, l);
+    public Trajekt(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, Relacija r, String i, String l, int stA, double max){
+        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, r, i, l);
         this.stAvtov = stA;
+        this.maxTezaAvta = max;
     }
 
     public static Trajekt ustvariTrajekt() throws Exception {
@@ -46,6 +50,8 @@ public class Trajekt extends Ladja {
         System.out.println("stevilo sedezev: ");
         int stSedezev = Integer.parseInt(br.readLine());
 
+        Relacija r = Relacija.ustvariRelacija();
+
         System.out.println("ime ladje: ");
         String imeLadje = br.readLine();
 
@@ -54,8 +60,12 @@ public class Trajekt extends Ladja {
 
         System.out.println("stevilo avtov: ");
         int stAvtov = Integer.parseInt(br.readLine());
+        
+        System.out.println("maksimalna teza avtomobila: ");
+        double maxTezaAvta = Double.parseDouble(br.readLine().trim());
 
-        Trajekt t = new Trajekt(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, imeLadje, lastnikLadje, stAvtov);
+        Trajekt t = new Trajekt(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, 
+            cenaVozovnice, stSedezev, r, imeLadje, lastnikLadje, stAvtov, maxTezaAvta);
         
         return t;
     }
@@ -63,8 +73,9 @@ public class Trajekt extends Ladja {
     @Override
     public String toString(){
         String niz = "";
-        niz += this.izpisNadrazreda();
+        niz += this.izpisNadrazredaLadja();
         niz += "Stevilo avtov: " + this.stAvtov + "\n";
+        niz += "Maksimalna teza avtomobila: " + this.maxTezaAvta + "\n";
 
         return niz;
     }

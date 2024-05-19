@@ -2,15 +2,18 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class KomercialniLet extends Letalo{
-    public String letalskaDruzba;
+    private String letalskaDruzba;
+    public RazredKabine razred;
 
     public KomercialniLet(){
         letalskaDruzba = "";
     }
 
-    public KomercialniLet(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, int stL, String ld){
-        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, stL);
+    public KomercialniLet(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, 
+        Relacija r, int stL, String pro, String ld, RazredKabine rk){
+        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, r, stL, pro);
         letalskaDruzba = ld;
+        razred = rk;
     }
 
     public static KomercialniLet ustvariKomercialniLet() throws Exception{
@@ -46,13 +49,21 @@ public class KomercialniLet extends Letalo{
         System.out.println("stevilo sedezev: ");
         int stSedezev = Integer.parseInt(br.readLine());
 
+        Relacija r = Relacija.ustvariRelacija();
+
         System.out.println("stevilo letala: ");
         int stLetala = Integer.parseInt(br.readLine());
+
+        System.out.println("proizvajalec: ");
+        String pr = br.readLine();
 
         System.out.println("letalska druzba: ");
         String letalskaDruzba = br.readLine();
 
-        KomercialniLet kl = new KomercialniLet(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, stLetala, letalskaDruzba);
+        RazredKabine rk = RazredKabine.ustvariRazredKabine();
+
+        KomercialniLet kl = new KomercialniLet(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, 
+            stSedezev, r, stLetala, pr, letalskaDruzba, rk);
 
         return kl;
     }
@@ -60,8 +71,9 @@ public class KomercialniLet extends Letalo{
     @Override
     public String toString(){
         String niz = "";
-        niz += this.izpisNadrazreda();
+        niz += this.izpisNadrazredaLetalo();
         niz += "Letalska druzba: " + letalskaDruzba + "\n";
+        niz += razred.RazredKabineToString();
 
         return niz;
     }

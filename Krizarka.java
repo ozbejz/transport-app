@@ -2,16 +2,20 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Krizarka extends Ladja{
-    private String ime;
+    private String aktivnosti;
+    private String restavracije;
+    private String dodatno;
 
     public Krizarka(){
         super();
-        ime = "";
+        aktivnosti = "";
     }
 
-    public Krizarka(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, String i, String l, String kr){
-        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, i, l);
-        ime = kr;
+    public Krizarka(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, Relacija r, String i, String l, String kr, String re, String dod){
+        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, r, i, l);
+        aktivnosti = kr;
+        restavracije = re;
+        dodatno = dod;
     }
 
     public static Krizarka ustvariKrizarko() throws Exception {
@@ -47,16 +51,25 @@ public class Krizarka extends Ladja{
         System.out.println("stevilo sedezev: ");
         int stSedezev = Integer.parseInt(br.readLine());
 
+        Relacija r = Relacija.ustvariRelacija();
+
         System.out.println("ime ladje: ");
         String imeLadje = br.readLine();
 
         System.out.println("lastnik ladje: ");
         String lastnikLadje = br.readLine();
 
-        System.out.println("krizarka: ");
+        System.out.println("aktivnosti: ");
         String krizarka = br.readLine();
 
-        Krizarka k = new Krizarka(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, imeLadje, lastnikLadje, krizarka);
+        System.out.println("restavracije: ");
+        String restavracije = br.readLine();
+
+        System.out.println("dodatno: ");
+        String dodatno = br.readLine();
+
+        Krizarka k = new Krizarka(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, 
+            cenaVozovnice, stSedezev, r, imeLadje, lastnikLadje, krizarka, restavracije, dodatno);
         
         return k;
     }
@@ -64,8 +77,10 @@ public class Krizarka extends Ladja{
     @Override
     public String toString(){
         String niz = "";
-        niz += this.izpisNadrazreda();
-        niz += "Krizarka: " + this.ime + "\n";
+        niz += this.izpisNadrazredaLadja();
+        niz += "Aktivnosti: " + this.aktivnosti + "\n";
+        niz += "Restavracije: " + this.restavracije + "\n";
+        niz += "Dodatno: " + this.dodatno + "\n";
 
         return niz;
     }

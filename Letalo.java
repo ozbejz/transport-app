@@ -2,15 +2,17 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Letalo extends Prevoz {
-    protected int stLetala;
+    private int stLetala;
+    private String proizvajalec;
 
     public Letalo(){
 
     }
 
-    public Letalo(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, int stL){
-        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS);
+    public Letalo(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, Relacija r, int stL, String pro){
+        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, r);
         stLetala = stL;
+        proizvajalec = pro;
     }
 
     public int getStLetala(){
@@ -50,18 +52,24 @@ public class Letalo extends Prevoz {
         System.out.println("stevilo sedezev: ");
         int stSedezev = Integer.parseInt(br.readLine());
 
+        Relacija r = Relacija.ustvariRelacija();
+
         System.out.println("stevilo letala: ");
         int stLetala = Integer.parseInt(br.readLine());
 
-        Letalo l = new Letalo(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, stLetala);
+        System.out.println("proizvajalec: ");
+        String pr = br.readLine();
+
+        Letalo l = new Letalo(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, r, stLetala, pr);
 
         return l;
     }
 
-    public String izpisNadrazreda(){
+    public String izpisNadrazredaLetalo(){
         String niz = "";
         niz += this.izpisNadrazreda();
         niz += "Stevilka letala: " + stLetala + "\n";
+        niz += "Proizvajalec: " + proizvajalec + "\n";
         return niz;
     }
 
@@ -70,6 +78,7 @@ public class Letalo extends Prevoz {
         String niz = "";
         niz += this.izpisNadrazreda();
         niz += "Stevilka letala: " + stLetala + "\n";
+        niz += "Proizvajalec: " + proizvajalec + "\n";
 
         return niz;
     }

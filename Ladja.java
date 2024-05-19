@@ -11,8 +11,8 @@ public class Ladja extends Prevoz{
         lastnik = "";
     }
 
-    public Ladja(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, String i, String l){
-        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS);
+    public Ladja(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, Relacija r, String i, String l){
+        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, r);
         this.imeLadje = i;
         this.lastnik = l;
     }
@@ -50,13 +50,15 @@ public class Ladja extends Prevoz{
         System.out.println("stevilo sedezev: ");
         int stSedezev = Integer.parseInt(br.readLine());
 
+        Relacija r = Relacija.ustvariRelacija();
+
         System.out.println("ime ladje: ");
         String imeLadje = br.readLine();
 
         System.out.println("lastnik ladje: ");
         String lastnikLadje = br.readLine();
 
-        Ladja l = new Ladja(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, imeLadje, lastnikLadje);
+        Ladja l = new Ladja(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, r, imeLadje, lastnikLadje);
 
         return l;
     }
@@ -78,14 +80,9 @@ public class Ladja extends Prevoz{
         return niz;
     }
 
-    public String izpisNadrazreda(){
+    public String izpisNadrazredaLadja(){
         String niz = "";
-        niz += "Datum in ura odhoda: " + this.getCenaVozovnice() + ", " + this.getUraOdhoda() + "\n";
-        niz += "Datum in ura prihoda: " + this.getDatumPrihoda() + ", " + this.getUraPrihoda() + "\n";
-        niz += "Kraj in drazava odhoda: " + this.getKrajOdhoda() + ", " + this.getDrzavaOdhoda() + "\n";
-        niz += "Kraj in drzava prihoda: " + this.getKrajPrihoda() + ", " + this.getDrzavaPrihoda() + "\n";
-        niz += "Cena vozovnice: " + this.getCenaVozovnice() + "\n";
-        niz += "Stevilo sedezev: " + this.getStSedezev() + "\n";
+        niz += this.izpisNadrazreda();
 
         return niz;
     }

@@ -18,8 +18,8 @@ public class Avtobus extends Prevoz{
         stAvtobusa = sc.nextInt();
     }
 
-    public Avtobus(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, String p, int s){
-        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS);
+    public Avtobus(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, Relacija r, String p, int s){
+        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, r);
         prevoznik = p;
         stAvtobusa = s;
     }
@@ -57,13 +57,15 @@ public class Avtobus extends Prevoz{
         System.out.println("stevilo sedezev: ");
         int stSedezev = Integer.parseInt(br.readLine().trim());
 
+        Relacija r = Relacija.ustvariRelacija();
+
         System.out.println("avtobusni prevoznik: ");
         String prevoznik = br.readLine().trim();
 
         System.out.println("stevilka avtobusa: ");
         int stAvtobusa = Integer.parseInt(br.readLine().trim());
 
-        Avtobus a = new Avtobus(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, prevoznik, stAvtobusa);
+        Avtobus a = new Avtobus(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, r, prevoznik, stAvtobusa);
         return a;   
     }
 
@@ -75,5 +77,14 @@ public class Avtobus extends Prevoz{
         niz += "Stevilka avtobusa: " + stAvtobusa + "\n";
 
         return niz;
+    }
+
+    public String shraniPodatke(){
+        String zapis = "AVT\r\n";
+        zapis += super.podatkiPrevoza();
+        zapis += this.prevoznik + "\r\n";
+        zapis += this.stAvtobusa + "\r\n";
+
+        return zapis;
     }
 }

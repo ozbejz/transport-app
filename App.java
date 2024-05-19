@@ -14,6 +14,8 @@ public class App {
                 System.out.println("(2) izpis/iskanje prevozov");
                 System.out.println("(3) odstranitev prevoza");
                 System.out.println("(4) nakup vozovnic");
+                System.out.println("(5) za vpis v datoteko");
+                System.out.println("(6) za branje iz datoteke");
                 System.out.println("(0) koncaj");
                 
                 int vnos = Integer.parseInt(br.readLine());
@@ -71,7 +73,14 @@ public class App {
                         agencija.nakupVozovnic();
                         break;
                     case 5:
-                        
+                        System.out.println("Vnesite ime datoteke za shranjevanje:");
+                        String datShrani = br.readLine();
+                        agencija.shraniVDatoteko(datShrani);
+                        break;
+                    case 6:
+                        System.out.println("Vnesite ime datoteke branje:");
+                        String datBeri = br.readLine();
+                        agencija.beriIzDatoteke(datBeri);
                         break;
                     case 0:
                         System.out.println("konec programa");

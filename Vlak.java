@@ -4,16 +4,18 @@ import java.io.InputStreamReader;
 public class Vlak extends Prevoz{
     private String prevoznik;
     private int stVlaka;
+    private RazredVagona razred;
 
     public Vlak(){
         prevoznik = "";
         stVlaka = 0;
     }
 
-    public Vlak(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, String p, int s){
-        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS);
+    public Vlak(String dO, String uO, String dP, String uP, String kO, String drO, String kP, String drP, double c, int stS, String p, int s, RazredVagona rv, Relacija r){
+        super(dO, uO, dP, uP, kO, drO, kP, drP, c, stS, r);
         prevoznik = p;
         stVlaka = s;
+        razred = rv;
     }
 
     public static Vlak ustvariVlak() throws Exception{
@@ -49,13 +51,17 @@ public class Vlak extends Prevoz{
         System.out.println("stevilo sedezev: ");
         int stSedezev = Integer.parseInt(br.readLine());
 
+        Relacija r = Relacija.ustvariRelacija();
+
         System.out.println("prevoznik: ");
         String prevoznik = br.readLine();
 
         System.out.println("stevilka vlaka: ");
         int stVlaka = Integer.parseInt(br.readLine());
 
-        Vlak v = new Vlak(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, prevoznik, stVlaka);
+        RazredVagona rv = RazredVagona.ustvariRazredVagona();
+
+        Vlak v = new Vlak(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, prevoznik, stVlaka, rv, r);
         
         return v;
     }
@@ -63,14 +69,10 @@ public class Vlak extends Prevoz{
     @Override
     public String toString(){
         String niz = "";
-        niz += "Datum in ura odhoda: " + this.getCenaVozovnice() + ", " + this.getUraOdhoda() + "\n";
-        niz += "Datum in ura prihoda: " + this.getDatumPrihoda() + ", " + this.getUraPrihoda() + "\n";
-        niz += "Kraj in drazava odhoda: " + this.getKrajOdhoda() + ", " + this.getDrzavaOdhoda() + "\n";
-        niz += "Kraj in drzava prihoda: " + this.getKrajPrihoda() + ", " + this.getDrzavaPrihoda() + "\n";
-        niz += "Cena vozovnice: " + this.getCenaVozovnice() + "\n";
-        niz += "Stevilo sedezev: " + this.getStSedezev() + "\n";
+        niz += this.izpisNadrazreda();
         niz += "Prevoznik: " + prevoznik + "\n";
         niz += "Stevilka vlaka: " + stVlaka + "\n";
+        niz += razred.RazredVagonaToString();
 
         return niz;
     }

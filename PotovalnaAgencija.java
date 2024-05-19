@@ -78,6 +78,42 @@ public class PotovalnaAgencija {
         }
     }
 
+    public void shraniVDatoteko(String imeDat) throws Exception{
+        FileWriter fw = new FileWriter(imeDat);
+		PrintWriter dat = new PrintWriter(fw);
+
+        for(Prevoz p : this.seznamPrevozov){
+            dat.print(p.shraniPodatke());
+        }
+
+        dat.println("###");
+        dat.close();
+    }
+
+    public void beriIzDatoteke(String beriDat)throws Exception{
+        FileReader fr = new FileReader(beriDat);
+        BufferedReader dat = new BufferedReader(fr);
+        
+        this.seznamPrevozov.clear();
+
+        ArrayList<String> podatki;
+
+        while(dat.ready()){
+            String vrstica = dat.readLine().trim().toUpperCase();
+            if(vrstica.equals("PRE")){
+                podatki = new ArrayList<String>();
+                while(dat.ready() && !vrstica.equals("##"))
+                {
+                    vrstica = dat.readLine().trim();
+                    podatki.add(vrstica);
+                }
+
+                Prevoz prevoz = Prevoz.preberiPodatke(podatki);
+                this.seznamPrevozov.add(prevoz);
+            }
+        }
+    }
+
     public void nakupVozovnic() throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -116,6 +152,11 @@ public class PotovalnaAgencija {
                 System.out.println("(" + prevoz.getId() + ")");
                 System.out.println(prevoz.toString());
             }
+        }
+
+        System.out.println("Prevozi s prestopom: ");
+        for (Prevoz prevoz : this.seznamPrevozov){
+            
         }
 
         if(povratna){
