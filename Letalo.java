@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Letalo extends Prevoz {
     private int stLetala;
@@ -81,5 +82,52 @@ public class Letalo extends Prevoz {
         niz += "Proizvajalec: " + proizvajalec + "\n";
 
         return niz;
+    }
+
+    public String shraniPodatke(){
+        String zapis = "LET\r\n";
+        zapis += super.podatkiPrevoza();
+        zapis += this.stLetala + "\r\n";
+        zapis += this.proizvajalec + "\r\n";
+
+        zapis += "##\r\n";
+        
+        return zapis;
+    }
+
+    public static Letalo preberiPodatke(ArrayList<String> zapis) throws Exception {
+        String datumOdhoda = zapis.get(0);
+        String uraOdhoda = zapis.get(1);
+        String datumPrihoda = zapis.get(2);
+        String uraPrihoda = zapis.get(3);
+        String krajOdhoda = zapis.get(4);
+        String drzavaOdhoda = zapis.get(5);
+        String krajPrihoda = zapis.get(6);
+        String drzavaPrihoda = zapis.get(7);
+        double cenaVozovnice = Double.parseDouble(zapis.get(8));
+        int stSedezev = Integer.parseInt(zapis.get(9));
+
+        ArrayList<String> relPodatki = new ArrayList<>();
+        relPodatki.add(zapis.get(13));
+        relPodatki.add(zapis.get(14));
+
+        Relacija r = Relacija.preberiPodatke(relPodatki);
+
+        int stLetala = Integer.parseInt(zapis.get(16));
+        String proizvajalec = zapis.get(17);
+
+        Letalo l = new Letalo(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, 
+            stSedezev, r, stLetala, proizvajalec);
+
+        return l;
+    }
+
+    public String podatkiLetala(){
+        String zapis = "";
+		zapis += super.podatkiPrevoza();
+        zapis += this.stLetala + "\r\n";
+        zapis += this.proizvajalec + "\r\n";
+
+        return zapis;
     }
 }

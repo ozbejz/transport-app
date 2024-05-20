@@ -73,14 +73,10 @@ public class App {
                         agencija.nakupVozovnic();
                         break;
                     case 5:
-                        System.out.println("Vnesite ime datoteke za shranjevanje:");
-                        String datShrani = br.readLine();
-                        agencija.shraniVDatoteko(datShrani);
+                        agencija.shraniVDatoteko("prevozi.txt");
                         break;
                     case 6:
-                        System.out.println("Vnesite ime datoteke branje:");
-                        String datBeri = br.readLine();
-                        agencija.beriIzDatoteke(datBeri);
+                        agencija.beriIzDatoteke("prevozi.txt");
                         break;
                     case 0:
                         System.out.println("konec programa");
@@ -151,6 +147,7 @@ public class App {
                                 Prevoz kl = KomercialniLet.ustvariKomercialniLet();
                                 return kl;
                             default:
+                                System.out.println("napacen ukaz");
                                 break;
                         }
                         break;

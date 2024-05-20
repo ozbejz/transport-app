@@ -42,6 +42,7 @@ public class Relacija {
         String niz = "REL\r\n";	
         niz += naziv + "\r\n";
         niz += potrebenPotniList + "\r\n";
+        niz += "#" + "\r\n";
         return niz;
     }
 

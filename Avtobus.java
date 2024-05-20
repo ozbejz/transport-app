@@ -85,6 +85,34 @@ public class Avtobus extends Prevoz{
         zapis += this.prevoznik + "\r\n";
         zapis += this.stAvtobusa + "\r\n";
 
+        zapis += "##\r\n";
+        
         return zapis;
+    }
+
+    public static Avtobus preberiPodatke(ArrayList<String> zapis) throws Exception {
+        String datumOdhoda = zapis.get(0);
+        String uraOdhoda = zapis.get(1);
+        String datumPrihoda = zapis.get(2);
+        String uraPrihoda = zapis.get(3);
+        String krajOdhoda = zapis.get(4);
+        String drzavaOdhoda = zapis.get(5);
+        String krajPrihoda = zapis.get(6);
+        String drzavaPrihoda = zapis.get(7);
+        double cenaVozovnice = Double.parseDouble(zapis.get(8));
+        int stSedezev = Integer.parseInt(zapis.get(9));
+
+        ArrayList<String> relPodatki = new ArrayList<>();
+        relPodatki.add(zapis.get(13));
+        relPodatki.add(zapis.get(14));
+
+        Relacija r = Relacija.preberiPodatke(relPodatki);
+
+        String prevoznik = zapis.get(16);
+        int stAvtobusa = Integer.parseInt(zapis.get(17));
+
+        Avtobus a = new Avtobus(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, stSedezev, r, prevoznik, stAvtobusa);
+
+        return a;
     }
 }

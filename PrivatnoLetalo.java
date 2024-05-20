@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class PrivatnoLetalo extends Letalo {
     public String postrezba;
@@ -71,5 +72,44 @@ public class PrivatnoLetalo extends Letalo {
         niz += "Postrezba: " + postrezba + "\n";
 
         return niz;
+    }
+
+    public String shraniPodatke(){
+        String zapis = "PRI\r\n";
+        zapis += super.podatkiLetala();
+        zapis += this.postrezba + "\n";
+
+        zapis += "##\r\n";
+        
+        return zapis;
+    }
+
+    public static PrivatnoLetalo preberiPodatke(ArrayList<String> zapis) throws Exception {
+        String datumOdhoda = zapis.get(0);
+        String uraOdhoda = zapis.get(1);
+        String datumPrihoda = zapis.get(2);
+        String uraPrihoda = zapis.get(3);
+        String krajOdhoda = zapis.get(4);
+        String drzavaOdhoda = zapis.get(5);
+        String krajPrihoda = zapis.get(6);
+        String drzavaPrihoda = zapis.get(7);
+        double cenaVozovnice = Double.parseDouble(zapis.get(8));
+        int stSedezev = Integer.parseInt(zapis.get(9));
+
+        ArrayList<String> relPodatki = new ArrayList<>();
+        relPodatki.add(zapis.get(13));
+        relPodatki.add(zapis.get(14));
+
+        Relacija r = Relacija.preberiPodatke(relPodatki);
+
+        int stLetala = Integer.parseInt(zapis.get(16));
+        String proizvajalec = zapis.get(17);
+
+        String postrezba = zapis.get(18);
+
+        PrivatnoLetalo pl = new PrivatnoLetalo(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, 
+            stSedezev, r, stLetala, proizvajalec, postrezba);
+
+        return pl;
     }
 }

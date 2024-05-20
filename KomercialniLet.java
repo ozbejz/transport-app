@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class KomercialniLet extends Letalo{
     private String letalskaDruzba;
@@ -76,5 +77,53 @@ public class KomercialniLet extends Letalo{
         niz += razred.RazredKabineToString();
 
         return niz;
+    }
+
+    public String shraniPodatke(){
+        String zapis = "KOM\r\n";
+        zapis += super.podatkiLetala();
+        zapis += this.letalskaDruzba + "\n";
+
+        zapis += this.razred.shraniPodatke();
+
+        zapis += "##\r\n";
+        
+        return zapis;
+    }
+
+    public static KomercialniLet preberiPodatke(ArrayList<String> zapis) throws Exception {
+        String datumOdhoda = zapis.get(0);
+        String uraOdhoda = zapis.get(1);
+        String datumPrihoda = zapis.get(2);
+        String uraPrihoda = zapis.get(3);
+        String krajOdhoda = zapis.get(4);
+        String drzavaOdhoda = zapis.get(5);
+        String krajPrihoda = zapis.get(6);
+        String drzavaPrihoda = zapis.get(7);
+        double cenaVozovnice = Double.parseDouble(zapis.get(8));
+        int stSedezev = Integer.parseInt(zapis.get(9));
+
+        ArrayList<String> relPodatki = new ArrayList<>();
+        relPodatki.add(zapis.get(13));
+        relPodatki.add(zapis.get(14));
+
+        Relacija r = Relacija.preberiPodatke(relPodatki);
+
+        int stLetala = Integer.parseInt(zapis.get(16));
+        String proizvajalec = zapis.get(17);
+
+        String druzba = zapis.get(18);
+
+        ArrayList<String> razPodatki = new ArrayList<>();
+        razPodatki.add(zapis.get(20));
+        razPodatki.add(zapis.get(21));
+        razPodatki.add(zapis.get(22));
+
+        RazredKabine raz = RazredKabine.preberiPodatke(razPodatki);
+
+        KomercialniLet kl = new KomercialniLet(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, 
+            stSedezev, r, stLetala, proizvajalec, druzba, raz);
+
+        return kl;
     }
 }

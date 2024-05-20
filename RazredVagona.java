@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class RazredVagona {
     private int razred;
@@ -55,5 +56,24 @@ public class RazredVagona {
         niz += "Postrezba: " + postrezba + "\n";
 
         return niz;
+    }
+
+    public String shraniPodatke(){
+        String niz = "RAZV\r\n";	
+        niz += razred + "\r\n";
+        niz += postelja + "\r\n";
+        niz += postrezba + "\r\n";
+        niz += "#" + "\r\n";
+        return niz;
+    }
+
+    public static RazredVagona preberiPodatke(ArrayList<String> zapis) throws Exception{
+        int razred = Integer.parseInt(zapis.get(0));
+        String postelja = zapis.get(1);
+        String postrezba = zapis.get(2);
+
+        RazredVagona rv = new RazredVagona(razred, postelja, postrezba);
+
+        return rv;
     }
 }

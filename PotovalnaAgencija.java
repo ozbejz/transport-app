@@ -111,7 +111,92 @@ public class PotovalnaAgencija {
                 Prevoz prevoz = Prevoz.preberiPodatke(podatki);
                 this.seznamPrevozov.add(prevoz);
             }
+            
+            if(vrstica.equals("AVT")){
+                podatki = new ArrayList<String>();
+                while(dat.ready() && !vrstica.equals("##"))
+                {
+                    vrstica = dat.readLine().trim();
+                    podatki.add(vrstica);
+                }
+
+                Avtobus avtobus = Avtobus.preberiPodatke(podatki);
+                this.seznamPrevozov.add(avtobus);
+            }
+
+            if(vrstica.equals("LAD")){
+                podatki = new ArrayList<String>();
+                while(dat.ready() && !vrstica.equals("##"))
+                {
+                    vrstica = dat.readLine().trim();
+                    podatki.add(vrstica);
+                }
+
+                Ladja ladja = Ladja.preberiPodatke(podatki);
+                this.seznamPrevozov.add(ladja);
+            }
+
+            if(vrstica.equals("KRI")){
+                podatki = new ArrayList<String>();
+                while(dat.ready() && !vrstica.equals("##"))
+                {
+                    vrstica = dat.readLine().trim();
+                    podatki.add(vrstica);
+                }
+
+                Krizarka krizarka = Krizarka.preberiPodatke(podatki);
+                this.seznamPrevozov.add(krizarka);
+            }
+
+            if(vrstica.equals("TRA")){
+                podatki = new ArrayList<String>();
+                while(dat.ready() && !vrstica.equals("##"))
+                {
+                    vrstica = dat.readLine().trim();
+                    podatki.add(vrstica);
+                }
+
+                Trajekt trajekt = Trajekt.preberiPodatke(podatki);
+                this.seznamPrevozov.add(trajekt);
+            }
+
+            if(vrstica.equals("VLA")){
+                podatki = new ArrayList<String>();
+                while(dat.ready() && !vrstica.equals("##"))
+                {
+                    vrstica = dat.readLine().trim();
+                    podatki.add(vrstica);
+                }
+
+                Vlak vlak = Vlak.preberiPodatke(podatki);
+                this.seznamPrevozov.add(vlak);
+            }
+
+            if(vrstica.equals("PRI")){
+                podatki = new ArrayList<String>();
+                while(dat.ready() && !vrstica.equals("##"))
+                {
+                    vrstica = dat.readLine().trim();
+                    podatki.add(vrstica);
+                }
+
+                PrivatnoLetalo pl = PrivatnoLetalo.preberiPodatke(podatki);
+                this.seznamPrevozov.add(pl);
+            }
+
+            if(vrstica.equals("KOM")){
+                podatki = new ArrayList<String>();
+                while(dat.ready() && !vrstica.equals("##"))
+                {
+                    vrstica = dat.readLine().trim();
+                    podatki.add(vrstica);
+                }
+
+                KomercialniLet kl = KomercialniLet.preberiPodatke(podatki);
+                this.seznamPrevozov.add(kl);
+            }
         }
+        dat.close();
     }
 
     public void nakupVozovnic() throws Exception{

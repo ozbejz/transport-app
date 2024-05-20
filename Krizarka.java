@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Krizarka extends Ladja{
     private String aktivnosti;
@@ -60,7 +61,7 @@ public class Krizarka extends Ladja{
         String lastnikLadje = br.readLine();
 
         System.out.println("aktivnosti: ");
-        String krizarka = br.readLine();
+        String aktivnosti = br.readLine();
 
         System.out.println("restavracije: ");
         String restavracije = br.readLine();
@@ -69,7 +70,7 @@ public class Krizarka extends Ladja{
         String dodatno = br.readLine();
 
         Krizarka k = new Krizarka(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, 
-            cenaVozovnice, stSedezev, r, imeLadje, lastnikLadje, krizarka, restavracije, dodatno);
+            cenaVozovnice, stSedezev, r, imeLadje, lastnikLadje, aktivnosti, restavracije, dodatno);
         
         return k;
     }
@@ -83,5 +84,48 @@ public class Krizarka extends Ladja{
         niz += "Dodatno: " + this.dodatno + "\n";
 
         return niz;
+    }
+
+    public String shraniPodatke(){
+        String zapis = "KRI\r\n";
+        zapis += super.podatkiLadje();
+        zapis += this.aktivnosti + "\r\n";
+        zapis += this.restavracije + "\r\n";
+        zapis += this.dodatno + "\r\n";
+
+        zapis += "##\r\n";
+
+        return zapis;
+    }
+
+    public static Krizarka preberiPodatke(ArrayList<String> zapis) throws Exception {
+        String datumOdhoda = zapis.get(0);
+        String uraOdhoda = zapis.get(1);
+        String datumPrihoda = zapis.get(2);
+        String uraPrihoda = zapis.get(3);
+        String krajOdhoda = zapis.get(4);
+        String drzavaOdhoda = zapis.get(5);
+        String krajPrihoda = zapis.get(6);
+        String drzavaPrihoda = zapis.get(7);
+        double cenaVozovnice = Double.parseDouble(zapis.get(8));
+        int stSedezev = Integer.parseInt(zapis.get(9));
+
+        ArrayList<String> relPodatki = new ArrayList<>();
+        relPodatki.add(zapis.get(13));
+        relPodatki.add(zapis.get(14));
+
+        Relacija r = Relacija.preberiPodatke(relPodatki);
+
+        String imeLadje = zapis.get(16);
+        String lastnik = zapis.get(17);
+
+        String aktivnosti = zapis.get(18);
+        String restavracije = zapis.get(19);
+        String dodatno = zapis.get(20);
+
+        Krizarka k = new Krizarka(datumOdhoda, uraOdhoda, datumPrihoda, uraPrihoda, krajOdhoda, drzavaOdhoda, krajPrihoda, drzavaPrihoda, cenaVozovnice, 
+            stSedezev, r, imeLadje, lastnik, aktivnosti, restavracije, dodatno);
+
+        return k;
     }
 }
