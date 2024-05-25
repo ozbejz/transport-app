@@ -94,12 +94,18 @@ public class Prevoz{
         return id;
     }
 
+    public int getStProstih(){
+        return stSedezev - stProdanihVozovnic;
+    }
+
     public void addDatumOdhoda(String dO){
         datumOdhoda = dO;
     }
 
+
     public String izpisNadrazreda(){
         String niz = "";
+        niz += "Id: " + id + "\n";
         niz += "Datum in ura odhoda: " + datumOdhoda + ", " + uraOdhoda + "\n";
         niz += "Datum in ura prihoda: " + datumPrihoda + ", " + uraPrihoda + "\n";
         niz += "Kraj in drazava odhoda: " + krajOdhoda + ", " + drzavaOdhoda + "\n";
@@ -115,6 +121,7 @@ public class Prevoz{
     @Override
     public String toString(){
         String niz = "";
+        niz += "Id: " + id + "\n";
         niz += "Datum in ura odhoda: " + datumOdhoda + ", " + uraOdhoda + "\n";
         niz += "Datum in ura prihoda: " + datumPrihoda + ", " + uraPrihoda + "\n";
         niz += "Kraj in drazava odhoda: " + krajOdhoda + ", " + drzavaOdhoda + "\n";

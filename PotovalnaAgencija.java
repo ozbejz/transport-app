@@ -3,12 +3,12 @@ import java.util.*;
 
 public class PotovalnaAgencija {
     private ArrayList<Prevoz> seznamPrevozov;
-    private ArrayList<Integer> kupljeneVozovniceId;
+    private ArrayList<Prevoz> kupljeneVozovnice;
     private ArrayList<Integer> kupljeneVozovniceKol;
 
     public PotovalnaAgencija(){
         this.seznamPrevozov = new ArrayList<>();
-        this.kupljeneVozovniceId = new ArrayList<>();
+        this.kupljeneVozovnice = new ArrayList<>();
         this.kupljeneVozovniceKol = new ArrayList<>();
     }
 
@@ -30,15 +30,18 @@ public class PotovalnaAgencija {
         System.out.println("Id prevoza:");
 
         int vnos = Integer.parseInt(br.readLine());
-        this.seznamPrevozov.remove(vnos);
-    }
 
-    public void izpisAvtobusov(){
-        for (Prevoz prevoz : this.seznamPrevozov) {
-            if(prevoz instanceof Avtobus){
-                System.out.println(prevoz.toString());
+        int id = -1;
+
+        for(int i = 0; i < seznamPrevozov.size(); i++){
+            if(seznamPrevozov.get(i).getId() == vnos){
+                id = i;
             }
         }
+        
+        this.seznamPrevozov.remove(id);
+
+        System.out.println("Brisanje koncano");
     }
 
     public void izpisPoDatumu(String datum){
@@ -86,6 +89,7 @@ public class PotovalnaAgencija {
             dat.print(p.shraniPodatke());
         }
 
+        System.out.println("Prenosi shranjeni v datoteko!");
         dat.println("###");
         dat.close();
     }
@@ -196,6 +200,7 @@ public class PotovalnaAgencija {
                 this.seznamPrevozov.add(kl);
             }
         }
+        System.out.println("Prevozi vneseni iz datoteke!");
         dat.close();
     }
 
@@ -224,6 +229,7 @@ public class PotovalnaAgencija {
         String p = br.readLine().trim();
 
         boolean povratna = false;
+        boolean najdeno = false;
 
         if(p.toUpperCase().equals("DA")){
             povratna = true;
@@ -236,12 +242,20 @@ public class PotovalnaAgencija {
             if(prevoziOd && prevoz.getStSedezev() - prevoz.getStProdanih() >= stOseb && datum.equals(prevoz.getDatumOdhoda().replaceAll("\\s", ""))){
                 System.out.println("(" + prevoz.getId() + ")");
                 System.out.println(prevoz.toString());
+                najdeno = true;
             }
         }
 
+        /*
+        
         System.out.println("Prevozi s prestopom: ");
         for (Prevoz prevoz : this.seznamPrevozov){
             
+        }*/
+        
+        if(najdeno == false){
+            System.out.println("Zal nismo nasli nobenega prevoza ki bi vam ustrezal");
+            return;
         }
 
         if(povratna){
@@ -258,6 +272,47 @@ public class PotovalnaAgencija {
         }
 
         System.out.println("Za nakup vozovnice izberite stevilko prevoza ali (0) za izhod: ");
-        String izbira = br.readLine().trim();
+        int izbira = Integer.parseInt(br.readLine());
+        if(izbira == 0){
+            return;
+        }
+        System.out.println("Vnesite stevilo vozovnic: ");
+        int kol = Integer.parseInt(br.readLine());
+
+        for(int i = 0; i < seznamPrevozov.size(); i++){
+            if(seznamPrevozov.get(i).getId() == izbira && seznamPrevozov.get(i).getStProstih() >= kol){
+                System.out.println("Vozovnica kupljena!");
+                kupljeneVozovnice.add(seznamPrevozov.get(i));
+                kupljeneVozovniceKol.add(kol);
+                seznamPrevozov.get(i).setStProdanih(kol);
+            }
+        }
+
+        if(povratna){
+            System.out.println("Za nakup povratne vozovnice izberite stevilko prevoza ali (0) za izhod: ");
+            izbira = Integer.parseInt(br.readLine());
+            if(izbira == 0){
+                return;
+            }
+            System.out.println("Vnesite stevilo vozovnic: ");
+            kol = Integer.parseInt(br.readLine());
+
+            for(int i = 0; i < seznamPrevozov.size(); i++){
+                if(seznamPrevozov.get(i).getId() == izbira && seznamPrevozov.get(i).getStProstih() >= kol){
+                    System.out.println("Povratna vozovnica kupljena!");
+                    kupljeneVozovnice.add(seznamPrevozov.get(i));
+                    kupljeneVozovniceKol.add(kol);
+                    seznamPrevozov.get(i).setStProdanih(kol);
+                }
+            }
+        }
+    }
+
+    public void izpisKupljenih(){
+        System.out.println("Kupljene vozovnice:");
+        for(int i = 0; i < kupljeneVozovnice.size(); i++){
+            System.out.println(kupljeneVozovnice.get(i));
+            System.out.println("Stevilo vozovnic: " + kupljeneVozovniceKol.get(i));
+        }
     }
 }

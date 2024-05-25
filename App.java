@@ -14,8 +14,9 @@ public class App {
                 System.out.println("(2) izpis/iskanje prevozov");
                 System.out.println("(3) odstranitev prevoza");
                 System.out.println("(4) nakup vozovnic");
-                System.out.println("(5) za vpis v datoteko");
-                System.out.println("(6) za branje iz datoteke");
+                System.out.println("(5) pregled kupljenih vozovnic");
+                System.out.println("(6) shrani prevoze");
+                System.out.println("(7) vnesi prevoze iz datoteke");
                 System.out.println("(0) koncaj");
                 
                 int vnos = Integer.parseInt(br.readLine());
@@ -73,9 +74,12 @@ public class App {
                         agencija.nakupVozovnic();
                         break;
                     case 5:
+                        agencija.izpisKupljenih();
+                    break;
+                    case 6:
                         agencija.shraniVDatoteko("prevozi.txt");
                         break;
-                    case 6:
+                    case 7:
                         agencija.beriIzDatoteke("prevozi.txt");
                         break;
                     case 0:
