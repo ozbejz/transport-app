@@ -245,18 +245,52 @@ public class PotovalnaAgencija {
                 najdeno = true;
             }
         }
-
-        /*
         
         System.out.println("Prevozi s prestopom: ");
+
+        //najprej naredimo seznam prevozov, ki se koncajo na zeleni destinaciji
+        ArrayList<Prevoz> prevoziPrihod;
+        prevoziPrihod = new ArrayList<>();
+        boolean jePrestop = false;
+
         for (Prevoz prevoz : this.seznamPrevozov){
-            
-        }*/
+            boolean prevoziOd = drzavaPr.equals(prevoz.getDrzavaPrihoda().trim().toUpperCase()) 
+                && krajPr.equals(prevoz.getKrajPrihoda().trim().toUpperCase());
+            if(prevoziOd && prevoz.getStSedezev() - prevoz.getStProdanih() >= stOseb){
+                prevoziPrihod.add(prevoz);
+            }
+        }
+
+        // kraje prihoda tistih prevozov, ki se zacnejo na zeleni destinaciji primerjamo z kraji odhoda prevoziPrihod
+        for (Prevoz prevoz : this.seznamPrevozov){
+            boolean prevoziOd = drzavaOd.equals(prevoz.getDrzavaOdhoda().trim().toUpperCase()) && krajOd.equals(prevoz.getKrajOdhoda().trim().toUpperCase());
+            if(prevoziOd && prevoz.getStSedezev() - prevoz.getStProdanih() >= stOseb && datum.equals(prevoz.getDatumOdhoda().replaceAll("\\s", ""))){
+                for(Prevoz prevoz2 : prevoziPrihod){
+                    boolean prevoziPrih = prevoz2.getDrzavaOdhoda().trim().toUpperCase().equals(prevoz.getDrzavaPrihoda().trim().toUpperCase()) 
+                        && prevoz2.getKrajOdhoda().trim().toUpperCase().equals(prevoz.getKrajPrihoda().trim().toUpperCase());
+                    if(prevoziPrih){
+                        System.out.println("(" + prevoz.getId() + ")");
+                        System.out.println(prevoz.toString());
+
+                        System.out.println("(" + prevoz2.getId() + ")");
+                        System.out.println(prevoz2.toString());
+                        najdeno = true;
+                        jePrestop = true;
+                    }
+                }
+            }
+        }
+
+        if(jePrestop == false){
+            System.out.println("Ni nobenega prevoza s prestopom \n");
+        }
         
         if(najdeno == false){
-            System.out.println("Zal nismo nasli nobenega prevoza ki bi vam ustrezal");
+            System.out.println("Zal nismo nasli nobenega prevoza ki bi vam ustrezal \n");
             return;
         }
+
+        boolean jePovratna = false;
 
         if(povratna){
             System.out.println("Za nazaj: ");
@@ -267,39 +301,35 @@ public class PotovalnaAgencija {
                 if(prevoziOd && prevoz.getStSedezev() - prevoz.getStProdanih() >= stOseb){
                     System.out.println("(" + prevoz.getId() + ")");
                     System.out.println(prevoz.toString());
+                    jePovratna = true;
                 }
             }
         }
 
-        System.out.println("Za nakup vozovnice izberite stevilko prevoza ali (0) za izhod: ");
-        int izbira = Integer.parseInt(br.readLine());
-        if(izbira == 0){
-            return;
-        }
-        System.out.println("Vnesite stevilo vozovnic: ");
-        int kol = Integer.parseInt(br.readLine());
-
-        for(int i = 0; i < seznamPrevozov.size(); i++){
-            if(seznamPrevozov.get(i).getId() == izbira && seznamPrevozov.get(i).getStProstih() >= kol){
-                System.out.println("Vozovnica kupljena!");
-                kupljeneVozovnice.add(seznamPrevozov.get(i));
-                kupljeneVozovniceKol.add(kol);
-                seznamPrevozov.get(i).setStProdanih(kol);
-            }
+        if(povratna && jePovratna == false){
+            System.out.println("Zal nismo nasli povratnih prevozov \n");
         }
 
-        if(povratna){
-            System.out.println("Za nakup povratne vozovnice izberite stevilko prevoza ali (0) za izhod: ");
+        int izbira = 0;
+        int kol = 0;
+
+        while (true) {
+            System.out.println("Za nakup vozovnice izberite stevilko prevoza ali (0) za izhod: ");
             izbira = Integer.parseInt(br.readLine());
             if(izbira == 0){
-                return;
+                break;
             }
             System.out.println("Vnesite stevilo vozovnic: ");
             kol = Integer.parseInt(br.readLine());
-
+    
             for(int i = 0; i < seznamPrevozov.size(); i++){
-                if(seznamPrevozov.get(i).getId() == izbira && seznamPrevozov.get(i).getStProstih() >= kol){
-                    System.out.println("Povratna vozovnica kupljena!");
+                if(seznamPrevozov.get(i).getId() == izbira){
+                    if(seznamPrevozov.get(i).getStProstih() < kol){
+                        System.out.println("Premalo prostih mest!");
+                        break;
+                    }
+
+                    System.out.println("Vozovnica kupljena!");
                     kupljeneVozovnice.add(seznamPrevozov.get(i));
                     kupljeneVozovniceKol.add(kol);
                     seznamPrevozov.get(i).setStProdanih(kol);
@@ -309,10 +339,10 @@ public class PotovalnaAgencija {
     }
 
     public void izpisKupljenih(){
-        System.out.println("Kupljene vozovnice:");
+        System.out.println("Kupljene vozovnice: \n");
         for(int i = 0; i < kupljeneVozovnice.size(); i++){
             System.out.println(kupljeneVozovnice.get(i));
-            System.out.println("Stevilo vozovnic: " + kupljeneVozovniceKol.get(i));
+            System.out.print("Stevilo vozovnic: " + kupljeneVozovniceKol.get(i) + '\n');
         }
     }
 }
