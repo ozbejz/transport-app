@@ -58,7 +58,7 @@ public class PotovalnaAgencija {
         krajOd = krajOd.toUpperCase();
         krajPr = krajPr.toUpperCase();
         for (Prevoz prevoz : this.seznamPrevozov){
-            if(prevoz.getKrajPrihoda().toUpperCase().equals(krajPr) && prevoz.getKrajPrihoda().toUpperCase().equals(krajPr)){
+            if(prevoz.getKrajPrihoda().toUpperCase().equals(krajPr) && prevoz.getKrajOdhoda().toUpperCase().equals(krajOd)){
                 System.out.println(prevoz.toString());
             }
         }
